@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <a href="#">Quiz</a>
+      <nav>
+        <a id="active" href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Login</a>
+      </nav>
+    </div>
+
+    <div class="main-container">
+      <div class="main">
+        <h3>Interactive Quiz</h3>
+        <p>
+          Welcome to the quiz! Test your knowledge and get instant results.
+          Let's get started. You have 20s to choose the right answer. If you
+          dont choose any if the answers within 20s, the quize ends and the
+          results will not be shown. To see your score reach till the end of the
+          quiz!!. Good luck :)
+        </p>
+        <div class="btn-container">
+          <button onclick="startQuiz()" class="start-btn">Start</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div class="timer">Time Left: <span id="time">20</span>s</div>
+      <h1>Interactive Quiz</h1>
+      <div id="question-container">
+        <p id="question-text"></p>
+        <div id="options-list"></div>
+        <p id="feedback"></p>
+      </div>
+      <button id="next-btn">Next</button>
+      <button id="reset-btn" style="display: none">Reset</button>
+    </div>
+
+    <div class="score-display" style="display: none">
+      <h1>Quiz Completed!</h1>
+      <p id="score-text"></p>
+      <button id="restart-score-btn">Restart Quiz</button>
+    </div>
+
+    <script>
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let timeleft;
+      let timeinterval;
+      const timer = document.getElementById("time");
+      const questions = [
+        {
+          question:
+            "What is the longest word in the English language that can be typed using only one row of a QWERTY keyboard?",
+          options: ["Typewriter", "Monopoly", "Keyboard", "Stewardess"],
+          answer: "Typewriter",
+        },
+        {
+          question: "In what year was the first email ever sent?",
+          options: ["1969", "1971", "1983", "1990"],
+          answer: "1971",
+        },
+        {
+          question: "Which planet in our solar system has the shortest day?",
+          options: ["Earth", "Venus", "Jupiter", "Saturn"],
+          answer: "Jupiter",
+        },
+        {
+          question: "What is the rarest blood type in the world?",
+          options: ["AB-", "O-", "Rh-null", "B-"],
+          answer: "Rh-null",
+        },
+        {
+          question: "Which country has the most natural lakes in the world?",
+          options: ["Russia", "Canada", "United States", "Brazil"],
+          answer: "Canada",
+        },
+        {
+          question:
+            "What was the original name of Google before it was renamed?",
+          options: ["Backrub", "PageRank", "WebFind", "Googol"],
+          answer: "Backrub",
+        },
+        {
+          question:
+            "Which element on the periodic table was named after the creator of the periodic table?",
+          options: ["Curium", "Einsteinium", "Mendelevium", "Rutherfordium"],
+          answer: "Mendelevium",
+        },
+        {
+          question: "What is the only mammal capable of true flight?",
+          options: ["Flying squirrel", "Sugar glider", "Bat", "Pigeon"],
+          answer: "Bat",
+        },
+        {
+          question:
+            "Which country spans the most time zones (including overseas territories)?",
+          options: ["United States", "Russia", "France", "China"],
+          answer: "France",
+        },
+        {
+          question: "What is the smallest country in the world by land area?",
+          options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
+          answer: "Vatican City",
+        },
+      ];
+
+      function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        timeleft = 20;
+        timer.textContent = timeleft;
+        $("body").addClass("blurred");
+        $(".nav-bar").addClass("blurred1");
+        startTimer();
+        $(".main-container").hide();
+        $(".quiz-container").show();
+        $("#next-btn").hide();
+        $(".timer").show();
+        $(".score-display").hide();
+        $("#restart-btn").hide();
+        loadQuestion();
+      }
+
+      function loadQuestion() {
+        clearInterval(timerInterval);
+        timeleft = 20;
+        timer.textContent = timeleft;
+        startTimer();
+        if (currentQuestionIndex < questions.length) {
+          $("#next-btn").hide();
+          $("#reset-btn").hide();
+          const currentQuestion = questions[currentQuestionIndex];
+          $("#question-text").text(currentQuestion.question);
+          $("#options-list").empty();
+          $("#feedback").text("");
+
+          currentQuestion.options.forEach((option) => {
+            $("#options-list").append(
+              `<button class="option">${option}</button>`
+            );
+          });
+          $(".option").click(function () {
+            const selectedOption = $(this).text();
+            const correctAnswer = questions[currentQuestionIndex].answer;
+            if (selectedOption === correctAnswer) {
+              $("#feedback").text("Correct!").css("color", "green");
+              score++;
+              $(".option").off("click");
+              $("#next-btn").show();
+              $("#reset-btn").show();
+              clearInterval(timerInterval);
+            } else {
+              $("#feedback").text("Incorrect!").css("color", "red");
+              $(".option").off("click");
+              $("#next-btn").show();
+              $("#reset-btn").show();
+              clearInterval(timerInterval);
+            }
+          });
+        } else {
+          $(".quiz-container").hide();
+          $(".score-display").show();
+          $("#score-text").text(`Your score: ${score}/${questions.length}`);
+          clearInterval(timerInterval);
+        }
+      }
+
+      $("#next-btn").click(function () {
+        currentQuestionIndex++;
+        loadQuestion();
+      });
+
+      $("#restart-btn, #restart-score-btn").click(function () {
+        startQuiz();
+      });
+
+      $("#reset-btn").click(function () {
+        currentQuestionIndex = 0;
+        score = 0;
+        loadQuestion();
+      });
+
+      $(document).ready(function () {
+        $(".quiz-container").hide();
+        $(".score-display").hide();
+      });
+      function startTimer() {
+        timerInterval = setInterval(() => {
+          timeleft--;
+          timer.textContent = timeleft;
+          if (timeleft <= 0) {
+            clearInterval(timerInterval);
+            endQuiz();
+          }
+        }, 1000);
+      }
+      function endQuiz() {
+        clearInterval(timerInterval);
+        $(".main-container").show();
+        $(".quiz-container").hide();
+      }
+    </script>
+  </body>
+</html>

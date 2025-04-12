@@ -1,0 +1,212 @@
+body{
+    width: 100%;
+    height:100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url('quize image.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+.nav-bar{
+    color: aliceblue;
+    font-size: 20px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 70px;
+}
+.nav-bar a{
+    text-decoration: none;
+    color:white;
+}
+.nav-bar a:hover{
+    border-radius: 10px;
+    
+    color: black;
+    background-color: aqua;
+}
+    #active{
+    border-radius: 10px;
+    padding: 8px;
+    color: black;
+    background-color: aqua;
+    }
+    .main-container{
+    display: flex;
+    }
+.main{
+    position: absolute;
+    display: block;
+    flex-wrap: wrap;
+    margin: 8vw 24vw;
+    background-color: rgb(189, 51, 157);
+    width: 50%;
+    height: 70vh;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+.main h3{
+    display: flex;
+    justify-content: center;
+    color:azure;
+    font-size: 50px;
+    margin: 0;
+}
+.main p{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    color: rgb(148, 168, 168);
+    font-size: 20px;
+}
+.btn-container{
+    display: flex;
+    justify-content: center;
+}
+.start-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 50px;
+    border-radius: 30px;
+    border: none;
+    font-size: 25px;
+    color: blueviolet;
+}
+.start-btn:hover{
+    background-color: bisque;
+    color: black;
+}
+.quiz-container{
+    position: absolute;
+    display:block;
+    flex-wrap: wrap;
+    margin: 8vw 24vw;
+    background-color: rgb(189, 51, 157);
+    width: 50%;
+    height: fit-content;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 20px;
+    margin-top: 0;
+    z-index: 5;
+}
+#question-container{
+    background-color: rgb(198, 163, 197);
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    display: block;
+}
+#feedback{
+    display: flex;
+    justify-content: center;
+}
+#options-list{
+    list-style-type: none;
+}
+.option{
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    font-size: 20px;
+    line-height: 40px;
+    gap: 20px;
+    color: rgb(5, 42, 30);
+}
+.option:hover{
+    background-color: rgb(227, 152, 164);
+    color: white;
+}
+#next-btn{
+    width: fit-content;
+    height: 50px;
+    font-size: 40px;
+    margin: 0 10vw;
+    border-radius: 20px;
+    border: none;
+    color: darkcyan;
+    background-color:#E6E6FA;
+}
+    
+#next-btn:hover{
+    scale: 1.1;
+    background-color: black;
+    color: white;
+}
+#reset-btn{
+    width: fit-content;
+    height: 50px;
+    font-size: 40px;
+    margin: 30px;
+    border-radius: 20px;
+    border: none;
+    color: darkcyan;
+    background-color:#E6E6FA;
+}
+    
+#reset-btn:hover{
+    scale: 1.1;
+    background-color: black;
+    color: white;
+}
+    
+#restart-btn{
+    width: 20%;
+    height: 50px;
+    font-size: 40px;
+    display: none;
+    margin: 30px;
+    border-radius: 20px;
+    border: none;
+    background-color: darkgreen;
+}
+    
+#restart-btn:hover{
+    scale: 1.1;
+    background-color: black;
+    color: white;
+}
+.score-display{
+    position: absolute;
+    display: block;
+    flex-wrap: wrap;
+    margin: 8vw 24vw;
+    background-color: rgb(189, 51, 157);
+    width: 50%;
+    height: 70vh;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+.timer{
+    display: none;
+}
+
+#restart-score-btn{
+    background-color: darkgreen;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    font-size: 20px;
+}
+#restart-score-btn:hover{
+    color: white;
+    background-color: darkcyan;
+}
+.blurred {
+    backdrop-filter: blur(8px);
+}
+.blurred1 {
+    filter: blur(8px);
+}
